@@ -1,0 +1,20 @@
+Options -Indexes
+php_flag session.cookie_httponly on
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Don't rewrite existing files/dirs
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # Route non-existent paths to index
+    RewriteRule ^$ index.html [L]
+</IfModule>
+
+# Protect data folder
+<FilesMatch "\.json$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

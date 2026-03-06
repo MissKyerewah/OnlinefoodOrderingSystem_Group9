@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sheriffs Order Food You Love</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --cream: #FFF8F0;
+            --orange: #FF5722;
+            --orange-dark: #E64A19;
+            --orange-light: #FF8A65;
+            --brown: #3E2723;
+            --gold: #FFB300;
+            --green: #2E7D32;
+            --gray: #757575;
+            --light: #FAFAFA;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--brown);
+            overflow-x: hidden;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 4rem;
+            background: rgba(255,248,240,0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,87,34,0.12);
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--orange);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+        .logo span { color: var(--brown); }
+        .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--brown);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--orange); }
+        .nav-cta {
+            background: var(--orange) !important;
+            color: white !important;
+            padding: 0.65rem 1.6rem;
+            border-radius: 50px;
+            font-weight: 600 !important;
+            transition: transform 0.2s, box-shadow 0.2s !important;
+            box-shadow: 0 4px 15px rgba(255,87,34,0.35);
+        }
+        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255,87,34,0.4) !important; }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            padding: 8rem 4rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -200px; right: -200px;
+            width: 700px; height: 700px;
+            background: radial-gradient(circle, rgba(255,87,34,0.12) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .hero-text { z-index: 1; }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,87,34,0.1);
+            color: var(--orange);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.6s ease both;
+        }
+        .hero-badge::before { content: '✦'; font-size: 0.7rem; }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 5vw, 5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.6s 0.1s ease both;
+        }
+        h1 .accent { color: var(--orange); display: block; }
+        .hero-desc {
+            font-size: 1.15rem;
+            color: var(--gray);
+            line-height: 1.7;
+            max-width: 480px;
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 0.6s 0.2s ease both;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            animation: fadeInUp 0.6s 0.3s ease both;
+        }
+        .btn-primary {
+            background: var(--orange);
+            color: white;
+            padding: 1rem 2.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            box-shadow: 0 6px 25px rgba(255,87,34,0.4);
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(255,87,34,0.45); }
+        .btn-secondary {
+            color: var(--brown);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.2s;
+        }
+        .btn-secondary:hover { color: var(--orange); }
+        .hero-stats {
+            display: flex;
+            gap: 2.5rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(62,39,35,0.1);
+            animation: fadeInUp 0.6s 0.4s ease both;
+        }
+        .stat-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--orange);
+        }
+        .stat-label { font-size: 0.8rem; color: var(--gray); margin-top: 0.2rem; }
+
+        /* HERO VISUAL */
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            animation: fadeInRight 0.8s 0.2s ease both;
+        }
+        .food-circle {
+            width: 460px;
+            height: 460px;
+            background: linear-gradient(135deg, #FF8A65, #FF5722);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9rem;
+            position: relative;
+            box-shadow: 0 30px 80px rgba(255,87,34,0.35);
+            animation: float 3s ease-in-out infinite;
+        }
+        .food-float {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            animation: float 3s ease-in-out infinite;
+        }
+        .food-float:nth-child(2) { width: 80px; height: 80px; font-size: 2.2rem; top: 40px; right: -10px; animation-delay: 0.5s; }
+        .food-float:nth-child(3) { width: 70px; height: 70px; font-size: 2rem; bottom: 60px; right: 20px; animation-delay: 1s; }
+        .food-float:nth-child(4) { width: 75px; height: 75px; font-size: 2rem; top: 80px; left: -20px; animation-delay: 1.5s; }
+        .food-float:nth-child(5) { width: 65px; height: 65px; font-size: 1.8rem; bottom: 40px; left: 10px; animation-delay: 0.8s; }
+
+        /* ORDER CARD */
+        .order-card {
+            position: absolute;
+            bottom: -30px;
+            left: -60px;
+            background: white;
+            border-radius: 20px;
+            padding: 1.2rem 1.5rem;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            min-width: 240px;
+            animation: slideInLeft 0.8s 0.6s ease both;
+        }
+        .order-card-icon { font-size: 2rem; }
+        .order-card-text strong { display: block; font-size: 0.9rem; font-weight: 600; }
+        .order-card-text span { font-size: 0.78rem; color: var(--gray); }
+        .order-card-badge {
+            margin-left: auto;
+            background: rgba(46,125,50,0.1);
+            color: var(--green);
+            padding: 0.3rem 0.7rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* FEATURES */
+        .features {
+            padding: 6rem 4rem;
+            background: white;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .section-tag {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--orange);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.8rem;
+        }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .feature-card {
+            padding: 2.5rem;
+            border-radius: 24px;
+            background: var(--cream);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .feature-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(255,87,34,0.12); }
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; right: 0;
+            width: 120px; height: 120px;
+            background: radial-gradient(circle, rgba(255,87,34,0.08), transparent 70%);
+            border-radius: 50%;
+        }
+        .feature-icon {
+            width: 60px; height: 60px;
+            background: rgba(255,87,34,0.12);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+        }
+        .feature-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+        .feature-card p { color: var(--gray); line-height: 1.6; font-size: 0.95rem; }
+
+        /* MENU PREVIEW */
+        .menu-preview {
+            padding: 6rem 4rem;
+            background: var(--cream);
+        }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        .menu-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: inherit;
+        }
+        .menu-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+        .menu-emoji {
+            background: linear-gradient(135deg, #FF8A65, #FF5722);
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+        .menu-info { padding: 1.2rem; }
+        .menu-info h4 { font-weight: 600; font-size: 1rem; margin-bottom: 0.3rem; }
+        .menu-info p { color: var(--gray); font-size: 0.82rem; }
+        .menu-price {
+            font-weight: 700;
+            color: var(--orange);
+            font-size: 1.1rem;
+            margin-top: 0.6rem;
+        }
+        .menu-cta {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        /* HOW IT WORKS */
+        .how-it-works {
+            padding: 6rem 4rem;
+            background: var(--brown);
+            color: white;
+        }
+        .how-it-works .section-title { color: white; }
+        .how-it-works .section-tag { color: var(--gold); }
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+            position: relative;
+        }
+        .steps-grid::before {
+            content: '';
+            position: absolute;
+            top: 35px;
+            left: 12%;
+            right: 12%;
+            height: 2px;
+            background: rgba(255,179,0,0.3);
+        }
+        .step { text-align: center; }
+        .step-num {
+            width: 70px; height: 70px;
+            background: var(--gold);
+            color: var(--brown);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        .step h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.6rem; }
+        .step p { color: rgba(255,255,255,0.65); font-size: 0.88rem; line-height: 1.6; }
+
+        /* TESTIMONIALS */
+        .testimonials {
+            padding: 6rem 4rem;
+            background: white;
+        }
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .testimonial-card {
+            background: var(--cream);
+            border-radius: 24px;
+            padding: 2rem;
+            position: relative;
+        }
+        .stars { color: var(--gold); font-size: 1.1rem; margin-bottom: 1rem; }
+        .testimonial-text {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--brown);
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .author-avatar {
+            width: 44px; height: 44px;
+            background: linear-gradient(135deg, var(--orange-light), var(--orange));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        .author-name { font-weight: 600; font-size: 0.9rem; }
+        .author-role { color: var(--gray); font-size: 0.8rem; }
+
+        /* CTA BANNER */
+        .cta-banner {
+            margin: 0 4rem;
+            border-radius: 32px;
+            background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+            padding: 4rem;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 6rem;
+        }
+        .cta-banner::before {
+            content: '🍕';
+            position: absolute;
+            font-size: 10rem;
+            opacity: 0.08;
+            top: -20px; left: -20px;
+        }
+        .cta-banner::after {
+            content: '🍔';
+            position: absolute;
+            font-size: 8rem;
+            opacity: 0.08;
+            bottom: -20px; right: -20px;
+        }
+        .cta-banner h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .cta-banner p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        .btn-white {
+            background: white;
+            color: var(--orange);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.3s;
+            display: inline-block;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+        }
+        .btn-white:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(0,0,0,0.2); }
+
+        /* FOOTER */
+        footer {
+            background: var(--brown);
+            color: rgba(255,255,255,0.7);
+            padding: 4rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+        }
+        footer .logo { color: white; display: block; margin-bottom: 1rem; font-size: 1.5rem; }
+        footer p { font-size: 0.88rem; line-height: 1.7; }
+        footer h4 { color: white; font-weight: 600; margin-bottom: 1.2rem; font-size: 0.95rem; }
+        footer ul { list-style: none; }
+        footer ul li { margin-bottom: 0.6rem; }
+        footer ul li a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+        footer ul li a:hover { color: var(--orange); }
+        .footer-bottom {
+            background: var(--brown);
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding: 1.5rem 4rem;
+            text-align: center;
+            font-size: 0.83rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @media (max-width: 1024px) {
+            nav { padding: 1rem 2rem; }
+            .hero { grid-template-columns: 1fr; padding: 7rem 2rem 4rem; }
+            .hero-visual { display: none; }
+            .features-grid, .menu-grid, .steps-grid, .testimonials-grid { grid-template-columns: 1fr 1fr; }
+            footer { grid-template-columns: 1fr 1fr; }
+            .cta-banner { margin: 0 2rem; }
+        }
+        @media (max-width: 640px) {
+            nav { padding: 1rem 1.5rem; }
+            .nav-links { display: none; }
+            .hero, .features, .menu-preview, .how-it-works, .testimonials { padding: 4rem 1.5rem; }
+            .features-grid, .menu-grid, .steps-grid, .testimonials-grid { grid-template-columns: 1fr; }
+            footer { grid-template-columns: 1fr; padding: 3rem 1.5rem; }
+            .cta-banner { margin: 0 1.5rem; padding: 2.5rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <a href="index.html" class="logo">She<span>riffs</span></a>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#menu">Menu</a>
+            <a href="#how">How it Works</a>
+            <a href="login.php">Sign In</a>
+            <a href="register.php" class="nav-cta">Order Now →</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-text">
+            <div class="hero-badge">Now Delivering in Your Area</div>
+            <h1>
+                Delicious Food
+                <span class="accent">Delivered Fast</span>
+            </h1>
+            <p class="hero-desc">
+                From gourmet burgers to artisan sushi — explore hundreds of restaurant dishes delivered straight to your door in under 30 minutes.
+            </p>
+            <div class="hero-actions">
+                <a href="register.php" class="btn-primary">🍽️ Start Ordering</a>
+                <a href="login.php" class="btn-secondary">Already a member? Sign in →</a>
+            </div>
+            <div class="hero-stats">
+                <div>
+                    <div class="stat-num">50K+</div>
+                    <div class="stat-label">Happy Customers</div>
+                </div>
+                <div>
+                    <div class="stat-num">200+</div>
+                    <div class="stat-label">Menu Items</div>
+                </div>
+                <div>
+                    <div class="stat-num">4.9★</div>
+                    <div class="stat-label">Average Rating</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="food-circle">
+                🍕
+                <div class="food-float">🍔</div>
+                <div class="food-float">🍣</div>
+                <div class="food-float">🌮</div>
+                <div class="food-float">🍝</div>
+            </div>
+            <div class="order-card">
+                <div class="order-card-icon">📦</div>
+                <div class="order-card-text">
+                    <strong>Order Delivered!</strong>
+                    <span>Margherita Pizza • Just Now</span>
+                </div>
+                <div class="order-card-badge">✓ Done</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features" id="features">
+        <div class="section-header">
+            <div class="section-tag">Why FeastFlow</div>
+            <h2 class="section-title">Everything You Need<br>In One Platform</h2>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Lightning Fast Delivery</h3>
+                <p>Our network of riders ensures your food arrives hot and fresh, typically within 20–30 minutes of placing your order.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🛒</div>
+                <h3>Smart Cart System</h3>
+                <p>Add items, adjust quantities, and apply promo codes — our intelligent cart makes ordering frictionless and fun.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Secure Accounts</h3>
+                <p>Your profile, order history, and saved addresses are protected with industry-standard security and encryption.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🍽️</div>
+                <h3>Diverse Menu</h3>
+                <p>From street food to fine dining — explore 200+ dishes across 10 cuisines, curated by our culinary team daily.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Order Tracking</h3>
+                <p>Real-time updates from kitchen to doorstep. Know exactly when your meal will arrive down to the minute.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💳</div>
+                <h3>Easy Checkout</h3>
+                <p>Multiple payment methods, saved addresses, and one-tap reorder for your favorite meals make checkout a breeze.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MENU PREVIEW -->
+    <section class="menu-preview" id="menu">
+        <div class="section-header">
+            <div class="section-tag">Our Menu</div>
+            <h2 class="section-title">Today's Most Ordered</h2>
+        </div>
+        <div class="menu-grid">
+            <a href="register.php" class="menu-card">
+                <div class="menu-emoji">🍕</div>
+                <div class="menu-info">
+                    <h4>Margherita Pizza</h4>
+                    <p>Fresh mozzarella & basil</p>
+                    <div class="menu-price">$14.99</div>
+                </div>
+            </a>
+            <a href="register.php" class="menu-card">
+                <div class="menu-emoji">🍔</div>
+                <div class="menu-info">
+                    <h4>BBQ Chicken Burger</h4>
+                    <p>Smoky BBQ, cheddar, rings</p>
+                    <div class="menu-price">$12.49</div>
+                </div>
+            </a>
+            <a href="register.php" class="menu-card">
+                <div class="menu-emoji">🍣</div>
+                <div class="menu-info">
+                    <h4>Sushi Platter</h4>
+                    <p>Chef's 12-piece selection</p>
+                    <div class="menu-price">$22.99</div>
+                </div>
+            </a>
+            <a href="register.php" class="menu-card">
+                <div class="menu-emoji">🍛</div>
+                <div class="menu-info">
+                    <h4>Chicken Tikka Masala</h4>
+                    <p>Rich tomato-cream curry</p>
+                    <div class="menu-price">$15.49</div>
+                </div>
+            </a>
+        </div>
+        <div class="menu-cta">
+            <a href="register.php" class="btn-primary">View Full Menu →</a>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-it-works" id="how">
+        <div class="section-header">
+            <div class="section-tag">How It Works</div>
+            <h2 class="section-title">Order in 4 Simple Steps</h2>
+        </div>
+        <div class="steps-grid">
+            <div class="step">
+                <div class="step-num">1</div>
+                <h3>Create Account</h3>
+                <p>Sign up with your email, upload a profile photo and set your delivery address.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <h3>Browse Menu</h3>
+                <p>Explore our curated categories and filter by cuisine, price, or dietary preference.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <h3>Add to Cart</h3>
+                <p>Select your favorites, customize quantities, and review your cart before checkout.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">4</div>
+                <h3>Enjoy!</h3>
+                <p>Place your order and track it in real-time. Food arrives fresh at your door.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials">
+        <div class="section-header">
+            <div class="section-tag">Reviews</div>
+            <h2 class="section-title">What Our Customers Say</h2>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">"The sushi platter arrived in 25 minutes and was absolutely perfect. The fish was fresh, presentation was beautiful. Easily the best food delivery I've experienced."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">👩</div>
+                    <div>
+                        <div class="author-name">Sarah M.</div>
+                        <div class="author-role">Regular Customer</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">"I order from FeastFlow every Friday. The BBQ burger is legendary. The app is so smooth and the cart system is really well thought out. Highly recommend!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">👨</div>
+                    <div>
+                        <div class="author-name">James T.</div>
+                        <div class="author-role">Food Enthusiast</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">"Finally a food ordering platform that has healthy options! The Buddha Bowl is incredible and they remember my usual order. Customer service is top tier too."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">🧑</div>
+                    <div>
+                        <div class="author-name">Priya K.</div>
+                        <div class="author-role">Health Foodie</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA BANNER -->
+    <div class="cta-banner">
+        <h2>Ready to Order? 🎉</h2>
+        <p>Join 50,000+ food lovers. Sign up free and get your first order delivered!</p>
+        <a href="register.php" class="btn-white">Create Free Account →</a>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div>
+            <a href="index.html" class="logo">Sheriff<span style="color:var(--orange)">S</span></a>
+            <p>Your favourite food, delivered with love and speed. Bringing restaurant quality meals right to your doorstep every day.</p>
+        </div>
+        <div>
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="register.php">Sign Up</a></li>
+                <li><a href="login.php">Sign In</a></li>
+                <li><a href="dashboard.php">Dashboard</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>Cuisines</h4>
+            <ul>
+                <li><a href="#">Pizza & Italian</a></li>
+                <li><a href="#">Burgers & Grill</a></li>
+                <li><a href="#">Sushi & Asian</a></li>
+                <li><a href="#">Healthy Bowls</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>Contact</h4>
+            <ul>
+                <li><a href="#">📧 hello@sheriffs.com</a></li>
+                <li><a href="#">📞 1-800-SHERIFFS</a></li>
+                <li><a href="#">📍 Citywide Delivery</a></li>
+                <li><a href="#">⏰ Open 24/7</a></li>
+            </ul>
+        </div>
+    </footer>
+    <div class="footer-bottom">
+        © 2025 Sheriffs. All rights reserved. Made with ❤️ for food lovers everywhere.
+    </div>
+
+</body>
+</html>
